@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    override init() {
+        FIRApp.configure()
+    }
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        print(url)
+        return GIDSignIn.sharedInstance().handleURL(url, sourceApplication: options[UIApplicationLaunchOptionsSourceApplicationKey] as? String, annotation: options[UIApplicationLaunchOptionsAnnotationKey])
     }
 
     func applicationWillResignActive(application: UIApplication) {
